@@ -15,20 +15,6 @@ echo "$HOURAGO"
 echo "$HOUR"
 echo "$DAY"
 
-# was until 2023-01-14
-#if [ "$HOUR" = "08" ]
-#then
-#   MYSQLDUMP_IGNORETABLES=""
-#   PREFIX="keep"
-#   EXCLUSION_LIST="'information_schema','mysql'"
-#   INCLUSION_LIST="'coinvertit_coinvertit','cointessa_cointessa','coinvertit_coinvertit_archive'"
-#else
-#   MYSQLDUMP_IGNORETABLES="--ignore-table=coinvertit_coinvertit.Locations --ignore-table=coinvertit_coinvertit.ExchangeTable --ignore-table=coinvertit_coinvertit.ExchangeTableHistory --ignore-table=coinvertit_coinvertit.IP2location_db5"
-#   PREFIX="backup"
-#   EXCLUSION_LIST="'information_schema','mysql','cointessa_cointessa','coinvertit_coinvertit_archive'"
-#   INCLUSION_LIST="'coinvertit_coinvertit'"
-#fi
-
 MYSQLDUMP_IGNORETABLES=""
 PREFIX="mysqldb"
 EXCLUSION_LIST="'information_schema','mysql'"
@@ -80,4 +66,4 @@ rm -Rf /$1/mysqlbackup/keep$TWOHOURAGO.sql.*
 rm -Rf /$1/mysqlbackup/backup$TWOHOURAGO.sql.*
 
 ## Uncomment if you want to transfer the backup to a backup server.
-#rsync -av -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T -c arcfour -o Compression=no -x" --safe-links --delete-after --progress /$1/mysqlbackup/$PREFIX$NOW.sql.* $2
+rsync -av -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -T -c arcfour -o Compression=no -x" --safe-links --delete-after --progress /$1/mysqlbackup/$PREFIX$NOW.sql.* $2
